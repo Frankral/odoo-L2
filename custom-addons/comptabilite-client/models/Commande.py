@@ -8,3 +8,8 @@ class ComptaCommande(models.Model):
     numCommande = fields.Char(string="Numéro commande", default="New")
     dateCommande = fields.Date(string="Date de commande")
     montantTotal = fields.Integer(string="Montant total")
+
+    client_id = fields.Many2one('compta.client', string='Client')
+
+    ligne_commande_ids = fields.One2many('compta.ligne.commande', 'commande_id', string='Ligne de commande')
+

@@ -10,3 +10,6 @@ class ComptaFacture(models.Model):
     montantTotal = fields.Integer(string="Montant total")
     restePayer = fields.Integer(string="Reste à payer")
     dateFinPaiement = fields.Char(string="Date fin de paiement")
+
+    commande_id = fields.Many2one('compta.commande', string='Commande')
+    # client_id = fields.Many2one('compta.client', string='Client')

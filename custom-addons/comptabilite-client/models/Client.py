@@ -10,4 +10,4 @@ class ComptaClient(models.Model):
     adresse = fields.Char(string="Adresse")
     telephone = fields.Char(string="Numéro de téléphone")
     email = fields.Char(string="Email")
-    montantDette = fields.Integer(string="Raison social")
+    montantDette = fields.Integer(string="Montant de dette")

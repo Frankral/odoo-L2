@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_commande_tree" model="ir.ui.view">
+        <field name="name">view_commande.tree</field>
+        <field name="model">compta.commande</field>
+        <field name="arch" type="xml">
+            <tree string="Commandes">
+                <field name="numCommande" />
+                <field name="dateCommande" optional="show"/>
+                <field name="montantTotal" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_commande_form" model="ir.ui.view">
+        <field name="name">view_commande.form</field>
+        <field name="model">compta.commande</field>
+        <field name="arch" type="xml">
+            <form string="Commandes">
+                <sheet>
+                    <group>
+                        <field name="numCommande" />
+                    </group>
+                    <group>
+                        <field name="dateCommande" />
+                        <field name="montantTotal" />
+                    </group>
+                    <group>
+                        <field name="client_id" />
+                        <field name="ligne_commande_ids" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_compta_commande" model="ir.actions.act_window">
+        <field name="name">Commandes</field>
+        <field name="res_model">compta.commande</field>
+        <field name="view_mode">tree,form</field>
+        
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle commande
+            </p>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_client_tree" model="ir.ui.view">
+        <field name="name">view_client.tree</field>
+        <field name="model">compta.client</field>
+        <field name="arch" type="xml">
+            <tree string="Clients">
+                <field name="raisonSocial" />
+                <field name="adresse" optional="show"/>
+                <field name="montantDette" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_client_form" model="ir.ui.view">
+        <field name="name">view_client.form</field>
+        <field name="model">compta.client</field>
+        <field name="arch" type="xml">
+            <form string="Clients">
+                <sheet>
+                    <group>
+                        <field name="numClient" />
+                        <field name="raisonSocial" />
+                    </group>
+                    <group>
+                        <field name="adresse" />
+                        <field name="telephone" />
+                    </group>
+                    <group>
+                        <field name="email" />
+                        <field name="montantDette" />
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_compta_client" model="ir.actions.act_window">
+        <field name="name">Clients</field>
+        <field name="res_model">compta.client</field>
+        <field name="view_mode">tree,form</field>
+        
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer un nouveau client
+            </p>
+        </field>
+    </record>
+
+</odoo>

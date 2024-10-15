@@ -5,5 +5,5 @@ class ComptaModePaiement(models.Model):
     _description = 'Mode de paiement'
     _rec_name = "modePaiement"
 
-    modePaiement = fields.Selection([('espece', "Espèce"), ("virement", "Virement Bancaire"), ("carte", "Par carte")], string="Mode de paiement")
+    modePaiement = fields.Char(string="Mode de paiement")
    

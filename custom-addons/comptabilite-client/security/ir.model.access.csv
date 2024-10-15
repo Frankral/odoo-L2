@@ -1,1 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_compta_client,access.compta.client,model_compta_client,base.group_user,1,1,1,1
+access_compta_commande,access.compta.commande,model_compta_commande,base.group_user,1,1,1,1
+access_compta_ligne_commande,access.compta.ligne.commande,model_compta_ligne_commande,base.group_user,1,1,1,1
+access_compta_ressource,access.compta.ressource,model_compta_ressource,base.group_user,1,1,1,1
+access_compta_facture,access.compta.facture,model_compta_facture,base.group_user,1,1,1,1
+access_compta_justificatif,access.compta.justificatif,model_compta_justificatif,base.group_user,1,1,1,1
+access_compta_mode_paiement,access.compta.mode.paiement,model_compta_mode_paiement,base.group_user,1,1,1,1

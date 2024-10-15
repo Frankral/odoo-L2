@@ -7,3 +7,5 @@ class ComptaLigneCommande(models.Model):
     commande_id = fields.Many2one('compta.commande', string="Commande")
     ressource_id = fields.Many2one('compta.ressource', string="Ressource")
     quantite = fields.Integer(string="Quantité de ressource")
+
+    
