@@ -20,7 +20,7 @@
             <form string="Clients">
                 <sheet>
                     <group>
-                        <field name="numClient" />
+                        <field name="numClient" readonly="True"/>
                         <field name="raisonSocial" />
                     </group>
                     <group>

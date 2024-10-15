@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+    
+        <record id="seq_compta_client" model="ir.sequence">
+            <field name="name">Numéro client</field>
+            <field name="code">compta.client</field>
+            <field name="prefix">CL</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False" />
+        </record>
+        
+        <record id="seq_compta_commande" model="ir.sequence">
+            <field name="name">Numéro commande</field>
+            <field name="code">compta.commande</field>
+            <field name="prefix">C</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_compta_facture" model="ir.sequence">
+            <field name="name">Numéro facture</field>
+            <field name="code">compta.facture</field>
+            <field name="prefix">F</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_compta_justificatif" model="ir.sequence">
+            <field name="name">Numéro justificatif</field>
+            <field name="code">compta.justificatif</field>
+            <field name="prefix">J</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+        <record id="seq_compta_ressource" model="ir.sequence">
+            <field name="name">Code ressource</field>
+            <field name="code">compta.ressource</field>
+            <field name="prefix">R</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False" />
+        </record>
+
+    </data>
+   
+
+</odoo>

@@ -5,7 +5,7 @@ class ComptaCommande(models.Model):
     _description = 'Commande'
     _rec_name = "numCommande"
 
-    numCommande = fields.Char(string="Numéro commande", default="New")
+    numCommande = fields.Char(string="Numéro commande", default="Nouveau")
     dateCommande = fields.Date(string="Date de commande")
     montantTotal = fields.Integer(string="Montant total")
 
@@ -13,3 +13,9 @@ class ComptaCommande(models.Model):
 
     ligne_commande_ids = fields.One2many('compta.ligne.commande', 'commande_id', string='Ligne de commande')
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if not vals.get('numCommande') or vals['numCommande'] == 'Nouveau':
+                vals['numCommande'] = self.env['ir.sequence'].next_by_code('compta.commande')
+        return super().create(vals_list)

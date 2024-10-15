@@ -20,7 +20,7 @@
             <form string="Justificatifs">
                 <sheet>
                     <group>
-                        <field name="numJustificatif" />
+                        <field name="numJustificatif" readonly="True"/>
                     </group>
                     <group>
                         <field name="dateJustificatif" />

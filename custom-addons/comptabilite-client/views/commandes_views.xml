@@ -20,7 +20,7 @@
             <form string="Commandes">
                 <sheet>
                     <group>
-                        <field name="numCommande" />
+                        <field name="numCommande" readonly="True"/>
                     </group>
                     <group>
                         <field name="dateCommande" />

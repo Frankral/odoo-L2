@@ -20,7 +20,7 @@
             <form string="Ressources">
                 <sheet>
                     <group>
-                        <field name="codeRessource" />
+                        <field name="codeRessource" readonly="True"/>
                     </group>
                     <group>
                         <field name="libelle" />
