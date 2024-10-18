@@ -1,32 +1,36 @@
-[![Build Status](https://runbot.odoo.com/runbot/badge/flat/1/master.svg)](https://runbot.odoo.com/runbot)
-[![Tech Doc](https://img.shields.io/badge/master-docs-875A7B.svg?style=flat&colorA=8F8F8F)](https://www.odoo.com/documentation/17.0)
-[![Help](https://img.shields.io/badge/master-help-875A7B.svg?style=flat&colorA=8F8F8F)](https://www.odoo.com/forum/help-1)
-[![Nightly Builds](https://img.shields.io/badge/master-nightly-875A7B.svg?style=flat&colorA=8F8F8F)](https://nightly.odoo.com/)
+# Define the entry point to run Odoo
+CMD ["./odoo-bin", "-c", "./odoo.conf", "-i", "base"]
 
-Odoo
-----
+# installation
+## With docker
+* install docker and docker-compose
+* run `docker-compose up`
+* run the container
 
-Odoo is a suite of web based open source business apps.
+## Without docker
+### install dependencies
+``` bash
+apt-get install -y python3-pip python3-dev python3-venv libxml2-dev libxslt1-dev zlib1g-dev libsasl2-dev libldap2-dev build-essential libssl-dev libffi-dev libmysqlclient-dev libjpeg-dev libpq-dev libjpeg8-dev liblcms2-dev libblas-dev libatlas-base-dev -y
+```
 
-The main Odoo Apps include an <a href="https://www.odoo.com/page/crm">Open Source CRM</a>,
-<a href="https://www.odoo.com/app/website">Website Builder</a>,
-<a href="https://www.odoo.com/app/ecommerce">eCommerce</a>,
-<a href="https://www.odoo.com/app/inventory">Warehouse Management</a>,
-<a href="https://www.odoo.com/app/project">Project Management</a>,
-<a href="https://www.odoo.com/app/accounting">Billing &amp; Accounting</a>,
-<a href="https://www.odoo.com/app/point-of-sale-shop">Point of Sale</a>,
-<a href="https://www.odoo.com/app/employees">Human Resources</a>,
-<a href="https://www.odoo.com/app/social-marketing">Marketing</a>,
-<a href="https://www.odoo.com/app/manufacturing">Manufacturing</a>,
-<a href="https://www.odoo.com/">...</a>
+### install postgres
+``` bash
+sudo apt install postgresql
+sudo su - postgres -c "createuser -s odoo"
+```
+### install odoo requirements
+``` bash
+pip install -r requirements.txt
+```
 
-Odoo Apps can be used as stand-alone applications, but they also integrate seamlessly so you get
-a full-featured <a href="https://www.odoo.com">Open Source ERP</a> when you install several Apps.
+### run odoo
+#### for the first time
+``` bash
+./odoo-bin --addons-path=./addons,./custom-addons -d db-name -r odoo -i base
+```
 
-Getting started with Odoo
--------------------------
+#### after the first time
+``` bash
+./odoo-bin --addons-path=./addons,./custom-addons
+```
 
-For a standard installation please follow the <a href="https://www.odoo.com/documentation/17.0/administration/install/install.html">Setup instructions</a>
-from the documentation.
-
-To learn the software, we recommend the <a href="https://www.odoo.com/slides">Odoo eLearning</a>, or <a href="https://www.odoo.com/page/scale-up-business-game">Scale-up</a>, the <a href="https://www.odoo.com/page/scale-up-business-game">business game</a>. Developers can start with <a href="https://www.odoo.com/documentation/17.0/developer/howtos.html">the developer tutorials</a>
