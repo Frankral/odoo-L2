@@ -63,5 +63,19 @@
         action="action_compta_ressource"
     />
 
+    <menuitem
+        id="menu_creance"
+        name="Creances"
+        parent="menu_crud"
+        action="action_compta_creance"
+    />
+
+    <menuitem
+        id="menu_ligne_facture"
+        name="Ligne de facture"
+        parent="menu_crud"
+        action="action_compta_ligne_facture"
+    />
+
 
 </odoo>

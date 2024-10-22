@@ -27,9 +27,17 @@
                         <field name="montantTotal" />
                     </group>
                     <group>
+                        <field name="etatCommande"/>
                         <field name="client_id" />
-                        <field name="ligne_commande_ids" />
                     </group>
+                    <notebook>
+                        <page string="Lignes de commande">
+                            <field name="ligne_commande_ids" />
+                        </page>
+                        <page string="Factures">
+                            <field name="facture_ids" />
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

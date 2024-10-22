@@ -11,13 +11,15 @@
     'data': [
         'security/ir.model.access.csv',
         "data/sequence.xml",
-        'views/clients_views.xml',
-        'views/commandes_views.xml',
-        'views/factures_views.xml',
-        'views/justificatifs_views.xml',
-        'views/lignes_commande_views.xml',
-        'views/modes_paiement_views.xml',
-        'views/ressources_views.xml',
+        'views/crud/clients_views.xml',
+        'views/crud/commandes_views.xml',
+        'views/crud/factures_views.xml',
+        'views/crud/justificatifs_views.xml',
+        'views/crud/lignes_commande_views.xml',
+        'views/crud/modes_paiement_views.xml',
+        'views/crud/ressources_views.xml',
+        'views/crud/creances_views.xml',
+        'views/crud/lignes_facture_views.xml',
         'views/menu.xml'
     ],
 }

@@ -26,7 +26,13 @@
                         <field name="libelle" />
                         <field name="prixUnitaire" />
                         <field name="stock" />
+                        <field name="unite" />
                     </group>
+                    <notebook>
+                        <page string="Lignes de commande">
+                            <field name="ligne_commande_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

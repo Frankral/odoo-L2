@@ -6,3 +6,5 @@ access_compta_ressource,access.compta.ressource,model_compta_ressource,base.grou
 access_compta_facture,access.compta.facture,model_compta_facture,base.group_user,1,1,1,1
 access_compta_justificatif,access.compta.justificatif,model_compta_justificatif,base.group_user,1,1,1,1
 access_compta_mode_paiement,access.compta.mode.paiement,model_compta_mode_paiement,base.group_user,1,1,1,1
+access_compta_creance,access.compta.creance,model_compta_creance,base.group_user,1,1,1,1
+access_compta_ligne_facture,access.compta.ligne.facture,model_compta_ligne_facture,base.group_user,1,1,1,1

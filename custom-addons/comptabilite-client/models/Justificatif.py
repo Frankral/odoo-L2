@@ -11,8 +11,9 @@ class ComptaJustificatif(models.Model):
 
     mode_paiement_id = fields.Many2one('compta.mode.paiement', string='Mode de paiement')
 
-    # client_id = fields.Many2one('compta.Justificatif', string='Justificatif')
-    facture_id = fields.Many2one('compta.facture', string='Facture')
+    client_id = fields.Many2one('compta.Justificatif', string='Justificatif')
+    
+    creance_id = fields.Many2one('compta.creance', string='Creance')
 
     @api.model_create_multi
     def create(self, vals_list):

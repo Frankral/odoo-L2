@@ -9,6 +9,14 @@ class ComptaRessource(models.Model):
     libelle = fields.Char(string="Libelle")
     prixUnitaire = fields.Integer(string="Prix unitaire")
     stock = fields.Integer(string="Stock")
+    unite = fields.Selection([
+        (' ', ' '),
+        ('kilo', 'Kilogramme'),
+        ('litre', 'Litre'),
+        ('heure', "Nombre d'heures"),
+    ], string='Unite')
+
+    ligne_commande_ids = fields.One2many('compta.ligne.commande', 'ressource_id', string='ligne_commande')
 
     @api.model_create_multi
     def create(self, vals_list):

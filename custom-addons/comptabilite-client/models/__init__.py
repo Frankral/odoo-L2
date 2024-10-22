@@ -6,3 +6,5 @@ from . import Justificatif
 from . import LigneCommande
 from . import ModePaiement
 from . import Ressource
+from . import Creance
+from . import LigneFacture

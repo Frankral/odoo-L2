@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_creance_tree" model="ir.ui.view">
+        <field name="name">view_creance.tree</field>
+        <field name="model">compta.creance</field>
+        <field name="arch" type="xml">
+            <tree string="Créances">
+                <field name="numCreance" />
+                <field name="dateCreance" optional="show"/>
+                <field name="montantCreance" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="view_creance_form" model="ir.ui.view">
+        <field name="name">view_creance.form</field>
+        <field name="model">compta.creance</field>
+        <field name="arch" type="xml">
+            <form string="Créances">
+                <sheet>
+                    <group>
+                        <field name="numCreance" readonly="True"/>
+                    </group>
+                    <group>
+                        <field name="dateCreance" />
+                        <field name="dateEcheanceCreance" />
+                    </group>
+                    <group>
+                        <field name="montantCreance" />
+                        <field name="restePayerCreance" />
+                    </group>
+                    <group>
+                        <field name="client_id" />
+                        <field name="facture_id"/>
+                    </group>
+                    <notebook>
+                        <page string="justificatifs">
+                            <field name="justificatif_ids" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_compta_creance" model="ir.actions.act_window">
+        <field name="name">Créances</field>
+        <field name="res_model">compta.creance</field>
+        <field name="view_mode">tree,form</field>
+        
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle créance
+            </p>
+        </field>
+    </record>
+
+</odoo>

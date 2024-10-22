@@ -6,9 +6,9 @@
         <field name="model">compta.client</field>
         <field name="arch" type="xml">
             <tree string="Clients">
-                <field name="raisonSocial" />
+                <field name="denomination" />
                 <field name="adresse" optional="show"/>
-                <field name="montantDette" optional="show"/>
+                <field name="typeClient" optional="show"/>
             </tree>
         </field>
     </record>
@@ -21,7 +21,7 @@
                 <sheet>
                     <group>
                         <field name="numClient" readonly="True"/>
-                        <field name="raisonSocial" />
+                        <field name="denomination" />
                     </group>
                     <group>
                         <field name="adresse" />
@@ -29,8 +29,19 @@
                     </group>
                     <group>
                         <field name="email" />
-                        <field name="montantDette" />
+                        <field name="typeClient" />
                     </group>
+                    <notebook>
+                        <page string="Créances">
+                            <field name="creance_ids"/>
+                        </page>
+                        <page string="Commandes">
+                            <field name="commande_ids"/>
+                        </page>
+                        <page string="justificatifs">
+                            <field name="justificatif_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
 
             </form>

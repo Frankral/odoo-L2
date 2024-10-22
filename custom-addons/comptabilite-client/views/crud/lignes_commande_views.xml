@@ -6,9 +6,11 @@
         <field name="model">compta.ligne.commande</field>
         <field name="arch" type="xml">
             <tree string="Lignes de commande" editable="bottom">
+                <field name="numLigneCommande" readonly="True"/>
                 <field name="commande_id" />
                 <field name="ressource_id" optional="show"/>
-                <field name="quantite" optional="show"/>
+                <field name="qteTotalRessource" optional="show"/>
+                <field name="qteTotalFacturee" optional="show"/>
             </tree>
         </field>
     </record>
