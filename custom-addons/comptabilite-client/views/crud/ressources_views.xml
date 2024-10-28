@@ -18,14 +18,19 @@
         <field name="model">compta.ressource</field>
         <field name="arch" type="xml">
             <form string="Ressources">
+                <header>
+                    <!-- <button name="add_10_stock" type="object" class="oe_stat_button" string="Ajouter 10 au stock"/> -->
+                </header>
                 <sheet>
                     <group>
                         <field name="codeRessource" readonly="True"/>
                     </group>
                     <group>
                         <field name="libelle" />
-                        <field name="prixUnitaire" />
-                        <field name="stock" />
+                        <field name="currency_id" invisible="True"/>
+                        <field name="prixUnitaire" widget="monetary"/>
+                        <field name="stock"/>
+                        <!-- <field name="virtual_stock"/> -->
                         <field name="unite" />
                     </group>
                     <notebook>
@@ -37,6 +42,8 @@
             </form>
         </field>
     </record>
+
+    
 
     <record id="action_compta_ressource" model="ir.actions.act_window">
         <field name="name">Ressources</field>

@@ -8,6 +8,10 @@
     "license": "LGPL-3",
     "version": "17.0.1.0",
 
+    # 'depends': [
+
+    # ],
+
     'data': [
         'security/ir.model.access.csv',
         "data/sequence.xml",
@@ -20,7 +24,11 @@
         'views/crud/ressources_views.xml',
         'views/crud/creances_views.xml',
         'views/crud/lignes_facture_views.xml',
-        'views/menu.xml'
+        'views/config/devise_views.xml',
+        'views/suivre_commande/suivre_commande_views.xml',
+        'views/suivre_commande/creer_facture_views.xml',
+        'views/menu.xml',
     ],
+
 }
 

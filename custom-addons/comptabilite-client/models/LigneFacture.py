@@ -6,11 +6,13 @@ class ComptaLigneFacture(models.Model):
     _rec_name = "numLigneFacture"
 
     numLigneFacture = fields.Char(string="Numéro de ligne de facture", default="Nouveau")
-    qteFacturee = fields.Float(string ='Quantite facturée')
+    qteFacturee = fields.Float(string ='Quantite facturée', required=True)
 
-    facture_id = fields.Many2one('compta.facture', string='Facture')
+    facture_id = fields.Many2one('compta.facture', string='Facture', required=True, ondelete="cascade")
 
-    ligne_commande_id = fields.Many2one('compta.ligne.commande', string='Ligne de commande')
+    ligne_commande_id = fields.Many2one('compta.ligne.commande', string='Ligne de commande', required=True, ondelete="cascade")
+
+    ressource_id = fields.Many2one(related='ligne_commande_id.ressource_id', string="Ressource")
 
     @api.model_create_multi
     def create(self, vals_list):

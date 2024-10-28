@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_facture_form_modal" model="ir.ui.view">
+        <field name="name">view_facture.form</field>
+        <field name="model">compta.facture</field>
+        <field name="arch" type="xml">
+            <form string="Factures">
+                <header>
+                    <field name="etatFacture" widget="statusbar" options='{"clickable": "1"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="numFacture" readonly="True"/>
+                    </group>
+                    <group>
+                        <field name="dateFacture" />
+                        <field name="currency_id" invisible="True"/>
+                        <field name="montantTotalFacture" readonly="1" widget="monetary"/>
+                        <!-- <field name="etatFacture" /> -->
+                    </group>
+                    <group>
+                        <field name="commande_id" readonly="1" options="{'no_open': True}"/>
+                    </group> 
+                    <group>
+                        <field name="creance_id" />
+                    </group>
+                    <!-- <button string="Créer une créance" name="action_facture" type="object" class="oe_highlight"/> -->
+                    <notebook>
+                        <page string="Lignes de factures">
+                            <field name="ligne_facture_ids">
+                                <tree editable="bottom">
+                                    <field name="numLigneFacture" readonly="1"/>
+                                    <field name="ligne_commande_id" options="{'no_create': True}" domain="[('commande_id', '=', context.get('active_id'))]"/>
+                                    <field name="qteFacturee" />
+                                    <!-- <field name="facture_id" /> -->
+                                    <!-- <field name="ressource_id"/>  -->
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

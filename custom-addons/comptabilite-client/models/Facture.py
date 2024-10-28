@@ -1,4 +1,6 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError, UserError
+
 
 class ComptaFacture(models.Model):
     _name = 'compta.facture'
@@ -6,20 +8,21 @@ class ComptaFacture(models.Model):
     _rec_name = "numFacture"
 
     numFacture = fields.Char(string="Numéro de facture", default="Nouveau")
-    dateFacture = fields.Date(string="Date du facture")
-    montantTotalFacture = fields.Integer(string="Montant total de la facture")
+    dateFacture = fields.Date(string="Date du facture", required=True)
+    montantTotalFacture = fields.Integer(string="Montant total de la facture", compute="_compute_montantTotal")
     etatFacture = fields.Selection([
         ('brouillon', 'Brouillon'),
         ('envoyee', 'Envoyée'),
         ('cours', 'En cours de paiement'),
         ('payee', 'Payée'),
         ('annulee', 'Annulée')
-    ], string='Etat de la facture')
+    ], string='Etat de la facture', required=True, default='brouillon')
 
-    commande_id = fields.Many2one('compta.commande', string='Commande')
+    commande_id = fields.Many2one('compta.commande', string='Commande', required=True, ondelete="cascade")
 
     ligne_facture_ids = fields.One2many('compta.ligne.facture', 'facture_id', string='Lignes de facture')
 
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id.id)
 
     # ------------- simulation one to one -------------------
     creance_id = fields.Many2one('compta.creance', compute='compute_creance', inverse='creance_inverse')
@@ -45,3 +48,16 @@ class ComptaFacture(models.Model):
             if not vals.get('numFacture') or vals['numFacture'] == 'Nouveau':
                 vals['numFacture'] = self.env['ir.sequence'].next_by_code('compta.facture')
         return super().create(vals_list)
+    
+    @api.onchange('montantTotalFacture')
+    def _check_positive(self):
+        if self.montantTotalFacture < 0:
+            raise ValidationError('La valeur du montant total doit être positive')
+        
+    def action_facture(self):
+        pass
+
+    @api.depends('ligne_facture_ids', 'ligne_facture_ids.qteFacturee')
+    def _compute_montantTotal(self):
+        for record in self:
+            record.montantTotalFacture = sum(record.ligne_facture_ids.mapped(lambda ligne: ligne.ressource_id.prixUnitaire * ligne.qteFacturee))

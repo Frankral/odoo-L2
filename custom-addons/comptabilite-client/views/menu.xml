@@ -4,14 +4,23 @@
     <menuitem
         id="menu_compta_root"
         name="Comptabilite Client"
-        sequence="545"
+        sequence="1000"
 
     /> 
 
+    <!-- configuration -->
+
      <menuitem
+        id="menu_compta_config"
+        name="Configuration"
+        parent="menu_compta_root"
+        sequence="20"
+    />
+
+    <menuitem
         id="menu_crud"
         name="CRUD"
-        parent="menu_compta_root"
+        parent="menu_compta_config"
     />
 
     <menuitem
@@ -77,5 +86,30 @@
         action="action_compta_ligne_facture"
     />
 
+    <menuitem id="menu_devise_parent"
+            name="Devise"
+            parent="menu_compta_config"
+            />
 
+    <menuitem id="menu_devise"
+            name="Devises"
+            parent="menu_devise_parent"
+            action="action_compta_devise"
+            />
+
+    <!-- suivre client -->
+
+    
+    <!-- suivre facture -->
+    
+    <!-- suivre commande -->
+
+    <menuitem
+        id="menu_suivre_commande"
+        name="Suivre commande"
+        parent="menu_compta_root"
+        action="action_compta_suivre_commande"
+        sequence="1"
+    />
+    
 </odoo>
