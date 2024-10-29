@@ -10,7 +10,7 @@ class ComptaRessource(models.Model):
     codeRessource = fields.Char(string="Code de ressource", default="Nouveau")
     libelle = fields.Char(string="Libelle", required=True)
     prixUnitaire = fields.Integer(string="Prix unitaire", required=True, )
-    stock = fields.Float(string="Stock", default=0,compute="_compute_stock", inverse="_inverse_stock", store=True )
+    stock = fields.Float(string="Stock", default=0,compute="compute_stock", inverse="_inverse_stock", store=True )
     unite = fields.Selection([
         (' ', ' '),
         ('kg', 'Kilogramme'),
@@ -22,7 +22,9 @@ class ComptaRessource(models.Model):
 
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id.id)
 
+    last_sum = fields.Float(string="last sum", default=0, store=True, compute='_compute_last_sum')
 
+    # ----------------------- create ------------------------------- 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -30,18 +32,8 @@ class ComptaRessource(models.Model):
                 vals['codeRessource'] = self.env['ir.sequence'].next_by_code('compta.ressource')
         return super().create(vals_list)
     
-    @api.onchange('ligne_commande_ids', 'ligne_commande_ids.qteTotalRessource')
-    def _compute_stock(self):
-        last_stock = self.stock
-        last_sum = sum(self._origin.ligne_commande_ids._origin.mapped('qteTotalRessource'))
-        print(last_sum)
-        diff = last_sum - sum(self.ligne_commande_ids.mapped('qteTotalRessource'))
-        self.stock = last_stock + diff 
 
-    def _inverse_stock(self):
-        self.stock = self.stock
-
-
+    # -------------------------- check ----------------------------
     @api.onchange('prixUnitaire', 'stock')
     def _check_positive(self):
         if self.prixUnitaire < 0:
@@ -49,4 +41,20 @@ class ComptaRessource(models.Model):
         if self.stock < 0:
             raise ValidationError('La valeur du stock doit être positive')
 
-   
+
+    # ----------------------------- compute ----------------------------------
+    @api.depends('ligne_commande_ids', 'ligne_commande_ids.qteTotalRessource')
+    def compute_stock(self):
+        summed = sum(self.ligne_commande_ids.mapped('qteTotalRessource'))
+        diff = self.last_sum - summed
+        if self.stock + diff >= 0: 
+            self.stock += diff
+            self._compute_last_sum()
+        else:
+            raise ValidationError("Il n'y a plus de stock pour le produit %s" % self.libelle)
+    
+    def _inverse_stock(self):
+        self.stock = self.stock
+    
+    def _compute_last_sum(self):
+        self.last_sum = sum(self.ligne_commande_ids.mapped('qteTotalRessource'))

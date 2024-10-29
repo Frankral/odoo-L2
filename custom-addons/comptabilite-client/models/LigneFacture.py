@@ -12,11 +12,15 @@ class ComptaLigneFacture(models.Model):
 
     ligne_commande_id = fields.Many2one('compta.ligne.commande', string='Ligne de commande', required=True, ondelete="cascade")
 
+    commande_id = fields.Many2one(related='ligne_commande_id.commande_id', string="Commande")
+
     ressource_id = fields.Many2one(related='ligne_commande_id.ressource_id', string="Ressource")
 
+    # ---------------------------- create ------------------------------
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if not vals.get('numLigneFacture') or vals['numLigneFacture'] == 'Nouveau':
                 vals['numLigneFacture'] = self.env['ir.sequence'].next_by_code('compta.ligne.facture')
         return super().create(vals_list)
+    

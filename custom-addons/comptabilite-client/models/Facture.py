@@ -42,6 +42,8 @@ class ComptaFacture(models.Model):
         self.creance_id.facture_id = self
     #----------- fin simulation ----------------
 
+
+    # -------------------------- create ---------------------------
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -49,15 +51,34 @@ class ComptaFacture(models.Model):
                 vals['numFacture'] = self.env['ir.sequence'].next_by_code('compta.facture')
         return super().create(vals_list)
     
+
+
+    # -------------------------------------- check ----------------------------------
     @api.onchange('montantTotalFacture')
     def _check_positive(self):
         if self.montantTotalFacture < 0:
             raise ValidationError('La valeur du montant total doit être positive')
-        
-    def action_facture(self):
-        pass
 
+    # --------------------------- compute ------------------------------
     @api.depends('ligne_facture_ids', 'ligne_facture_ids.qteFacturee')
     def _compute_montantTotal(self):
         for record in self:
+            for ligne in record.ligne_facture_ids:
+                if not ligne.ligne_commande_id.check_qte_facturee():
+                    raise ValidationError('On ne peut plus facturer le produit %s de ce nombre' % ligne.ressource_id.libelle)
             record.montantTotalFacture = sum(record.ligne_facture_ids.mapped(lambda ligne: ligne.ressource_id.prixUnitaire * ligne.qteFacturee))
+
+
+    # ------------------------- actions ------------------------------
+    def action_facture(self):
+        print("*--------------------------*", self.env.context)
+        return {
+            'name': 'Créer une facture pour la commande',
+            'type': 'ir.actions.act_window',
+            'res_model': 'compta.facture',  # Model of the form to display in the modal
+            'view_mode': 'form',
+            'view_id': self.env.ref("comptabilite-client.view_facture_form_modal_modify").id,
+            'target': 'new',  # Opens in a new window (modal)
+            'res_id': self.id,
+            'context': {'default_commande_id': self.commande_id.id},  # Pass context values to the modal form
+        }

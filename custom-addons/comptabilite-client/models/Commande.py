@@ -28,6 +28,8 @@ class ComptaCommande(models.Model):
 
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id.id)
 
+
+    # -------------------------- create -----------------------
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -35,25 +37,34 @@ class ComptaCommande(models.Model):
                 vals['numCommande'] = self.env['ir.sequence'].next_by_code('compta.commande')
         return super().create(vals_list)
 
-    @api.depends('ligne_commande_ids','ligne_commande_ids.qteTotalRessource')
-    def _compute_montantTotal(self):
-        self.montantTotal = sum(self.ligne_commande_ids.mapped(lambda ligne: ligne.ressource_id.prixUnitaire * ligne.qteTotalRessource))
 
+    # -------------------------------- check ------------------------------
     @api.onchange('montantTotal')
     def _check_positive(self):
         if self.montantTotal < 0:
             raise ValidationError('La valeur du montant total doit être positive')
-    
+        
+
+    # ---------------------------------- compute ----------------------------
+    @api.depends('ligne_commande_ids','ligne_commande_ids.qteTotalRessource')
+    def _compute_montantTotal(self):
+        self.montantTotal = sum(self.ligne_commande_ids.mapped(lambda ligne: ligne.ressource_id.prixUnitaire * ligne.qteTotalRessource))
+
+
+    # ---------------------- actions ------------------------
+
     def action_confirmer(self):
         self.etatCommande = 'confirmee'
     
     def action_creer_facture(self):
+        print("*--------------------------*", self.id, self.env.context)
+        print("/***************************/")
         return {
             'name': 'Créer une facture pour la commande ' + self.numCommande,
             'type': 'ir.actions.act_window',
             'res_model': 'compta.facture',  # Model of the form to display in the modal
             'view_mode': 'form',
-            'view_id': self.env.ref("comptabilite-client.view_facture_form_modal").id,
+            'view_id': self.env.ref("comptabilite-client.view_facture_form_modal_create").id,
             'target': 'new',  # Opens in a new window (modal)
             'context': {'default_commande_id': self.id},  # Pass context values to the modal form
         }
@@ -63,3 +74,6 @@ class ComptaCommande(models.Model):
     
     def action_annuler(self):
          self.etatCommande = 'annulee'
+
+    def action_commande(self):
+        pass
