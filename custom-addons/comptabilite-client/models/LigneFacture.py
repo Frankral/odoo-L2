@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError, UserError
 
 class ComptaLigneFacture(models.Model):
     _name = 'compta.ligne.facture'
@@ -24,3 +25,8 @@ class ComptaLigneFacture(models.Model):
                 vals['numLigneFacture'] = self.env['ir.sequence'].next_by_code('compta.ligne.facture')
         return super().create(vals_list)
     
+    @api.onchange('qteFacturee')
+    def check_change(self):
+        diff = -self._origin.qteFacturee + self.qteFacturee
+        if self.ligne_commande_id.qteTotalFacturee + diff > self.ligne_commande_id.qteTotalRessource:
+            raise ValidationError("On ne peut plus facturer le ressource %s de cette quantité" % self.ligne_commande_id.ressource_id.libelle)

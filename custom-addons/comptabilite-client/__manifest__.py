@@ -27,6 +27,7 @@
         'views/config/devise_views.xml',
         'views/suivre_commande/suivre_commande_views.xml',
         'views/suivre_commande/creer_facture_views.xml',
+        'views/suivre_facture/suivre_facture_views.xml',
         'views/menu.xml',
     ],
 

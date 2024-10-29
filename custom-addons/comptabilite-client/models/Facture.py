@@ -15,6 +15,7 @@ class ComptaFacture(models.Model):
         ('envoyee', 'Envoyée'),
         ('cours', 'En cours de paiement'),
         ('payee', 'Payée'),
+        ('archivee', 'Archivée'),
         ('annulee', 'Annulée')
     ], string='Etat de la facture', required=True, default='brouillon')
 
@@ -63,9 +64,6 @@ class ComptaFacture(models.Model):
     @api.depends('ligne_facture_ids', 'ligne_facture_ids.qteFacturee')
     def _compute_montantTotal(self):
         for record in self:
-            for ligne in record.ligne_facture_ids:
-                if not ligne.ligne_commande_id.check_qte_facturee():
-                    raise ValidationError('On ne peut plus facturer le produit %s de ce nombre' % ligne.ressource_id.libelle)
             record.montantTotalFacture = sum(record.ligne_facture_ids.mapped(lambda ligne: ligne.ressource_id.prixUnitaire * ligne.qteFacturee))
 
 
@@ -77,8 +75,20 @@ class ComptaFacture(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'compta.facture',  # Model of the form to display in the modal
             'view_mode': 'form',
-            'view_id': self.env.ref("comptabilite-client.view_facture_form_modal_modify").id,
+            'view_id': self.env.ref("comptabilite-client.view_facture_form_modal").id,
             'target': 'new',  # Opens in a new window (modal)
             'res_id': self.id,
             'context': {'default_commande_id': self.commande_id.id},  # Pass context values to the modal form
         }
+    
+    def action_envoyer(self):
+        self.etatFacture = 'envoyee'
+    
+    def action_paiement(self):
+        self.etatFacture = 'payee'
+
+    def action_archiver(self):
+        self.etatFacture = 'archivee'
+
+    def action_annuler(self):
+        self.etatFacture = 'annulee'

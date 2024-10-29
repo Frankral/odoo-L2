@@ -67,12 +67,8 @@ class ComptaLigneCommande(models.Model):
         for record in self:
             record.unite = record.ressource_id.unite
     
-    @api.depends("ligne_facture_ids", "ligne_facture_ids.qteFacturee")
+    @api.depends("ligne_facture_ids", "ligne_facture_ids.qteFacturee", "ligne_facture_ids.commande_id")
     def _compute_qte_facturee(self):
         for record in self:
             total = sum(record.ligne_facture_ids.mapped('qteFacturee'))
-
-            if not total > record.qteTotalRessource:
-                record.qteTotalFacturee = total
-            else:
-                raise ValidationError('On ne peut plus facturer le produit %s de ce nombre' % record.ressource_id.libelle)
+            record.qteTotalFacturee = total

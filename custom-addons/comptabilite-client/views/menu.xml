@@ -101,7 +101,13 @@
 
     
     <!-- suivre facture -->
-    
+    <menuitem
+        id="menu_suivre_facture"
+        name="Suivre facture"
+        parent="menu_compta_root"
+        action="action_compta_suivre_facture"
+        sequence="2"
+    />
     <!-- suivre commande -->
 
     <menuitem

@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="view_facture_form_modal" model="ir.ui.view">
+    <record id="view_suivre_facture_tree" model="ir.ui.view">
+        <field name="name">view_suivre_facture.tree</field>
+        <field name="model">compta.facture</field>
+        <field name="arch" type="xml">
+            <tree string="Factures">
+                <field name="numFacture" />
+                <field name="dateFacture" optional="show"/>
+                <field name="montantTotalFacture" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_suivre_facture_form" model="ir.ui.view">
         <field name="name">view_facture.form</field>
         <field name="model">compta.facture</field>
         <field name="arch" type="xml">
@@ -24,12 +36,11 @@
                         <!-- <field name="etatFacture" /> -->
                     </group>
                     <group>
-                        <field name="commande_id" readonly="1" options="{'no_open': True}"/>
+                        <field name="commande_id" readonly="numFacture != 'Nouveau'" options="{'no_open': True}"/>
                     </group> 
                     <group>
                         <field name="creance_id" />
                     </group>
-                    <!-- <button string="Créer une créance" name="action_facture" type="object" class="oe_highlight"/> -->
                     <notebook>
                         <page string="Lignes de factures">
                             <field name="ligne_facture_ids" context="{'commande_id': commande_id}">
@@ -47,6 +58,19 @@
         </field>
     </record>
 
-
+    <record id="action_compta_suivre_facture" model="ir.actions.act_window">
+        <field name="name">Factures</field>
+        <field name="res_model">compta.facture</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[Command.clear(),
+                (0,0, {'view_mode':'tree', 'view_id': ref('view_suivre_facture_tree')}),
+                (0,0, {'view_mode':'form', 'view_id': ref('view_suivre_facture_form')})]"/>
+        
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle facture
+            </p>
+        </field>
+    </record>
 
 </odoo>

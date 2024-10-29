@@ -64,7 +64,7 @@ class ComptaCommande(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'compta.facture',  # Model of the form to display in the modal
             'view_mode': 'form',
-            'view_id': self.env.ref("comptabilite-client.view_facture_form_modal_create").id,
+            'view_id': self.env.ref("comptabilite-client.view_facture_form_modal").id,
             'target': 'new',  # Opens in a new window (modal)
             'context': {'default_commande_id': self.id},  # Pass context values to the modal form
         }
