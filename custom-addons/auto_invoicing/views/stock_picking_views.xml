@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+
+    <record id="stock_picking_inherit_form_auto_invoicing" model="ir.ui.view">
+        <field name="name">stock.picking.inherit.form.auto.invoicing</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_validate']" position="replace">
+                <button string="Livrer" name="validate_button" type="object" class="oe_highlight" invisible="state in ('draft', 'confirmed', 'done', 'cancel')" />
+            </xpath>
+        </field>
+     </record>
+
+
+     <record id="stock_backorder_confirmation_inherit_wizard_auto_invoicing" model="ir.ui.view">
+        <field name="name">stock.backorder.confirmation.inherit.wizard.auto.invoicing</field>
+        <field name="model">stock.backorder.confirmation</field>
+        <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='process']" position="replace">
+                <button string="Créer reliquat" name="confirm_reliquat" type="object" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</data>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+
+    <record id="purchase_order_form_inherit_auto_invoice" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.auto.invoice</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
+                <page name="automation" string="Automatisation">
+                    <group>
+                        <field name="automatise_invoice" widget="boolean_toggle"/>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="product_invoice_policy" required='1' readonly="state != 'draft'"/>   
+            </xpath>
+            <xpath expr="//button[@name='button_confirm']" position="replace">
+                <button string="Confirmer la commande" name="confirmer_commande" type="object" class="oe_highlight" invisible="state != 'sent'"/>
+            </xpath>
+            <xpath expr="//button[@name='button_confirm']" position="replace">
+                <button string="Confirmer la commande" name="confirmer_commande" type="object" invisible="state != 'draft'"/>
+            </xpath> 
+        </field>
+     </record>
+
+</data>
