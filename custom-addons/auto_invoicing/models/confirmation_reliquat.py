@@ -5,5 +5,6 @@ class ConfirmationReliquat(models.TransientModel):
     _inherit = "stock.backorder.confirmation"
 
     def confirm_reliquat(self):
-        self.process()
-        self.pick_ids[0].create_invoice()
+        for record in self:
+            record.process()
+            record.pick_ids[0].create_invoice()
