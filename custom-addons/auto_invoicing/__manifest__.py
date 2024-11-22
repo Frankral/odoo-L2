@@ -9,7 +9,7 @@
     "version": "17.0.1.0",
 
     'depends': [
-        'base', 'sale', 'stock'
+        'base', 'sale', 'sale_management', 'stock', 'purchase', 'sale_stock'
     ],
 
     'data': [
