@@ -34,3 +34,9 @@ pip install -r requirements.txt
 ./odoo-bin --addons-path=./addons,./custom-addons
 ```
 
+# Odoo configuration for `auto_invoicing` module
+* Configure database for odoo
+* Install `account` module
+* Install `auto_invoicing` module
+* Disable `SMS Confirmation` in Inventory settings
+

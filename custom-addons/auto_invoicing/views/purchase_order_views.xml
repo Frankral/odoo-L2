@@ -12,8 +12,7 @@
                         <group>
                             <field name="automatise_invoice" widget="boolean_toggle" readonly="state != 'draft'"/>
                             <field name="invoice_date_selection" required="1" readonly="state != 'draft' or not automatise_invoice"/>
-                            <field name="invoice_date" invisible="invoice_date_selection != 'custom'" readonly="state != 'draft' or not automatise_invoice"/>
-                            
+                            <field name="invoice_date" invisible="invoice_date_selection != 'custom'" readonly="state != 'draft' or not automatise_invoice"/>    
                         </group>
                         <group>
                             <field name="invoice_ref" readonly="state != 'draft' or not automatise_invoice"/>
