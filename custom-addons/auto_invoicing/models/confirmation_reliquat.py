@@ -7,4 +7,5 @@ class ConfirmationReliquat(models.TransientModel):
     def confirm_reliquat(self):
         for record in self:
             record.process()
-            record.pick_ids[0].create_invoice()
+            if len(record.pick_ids) > 0: 
+                record.pick_ids[0].create_invoice()

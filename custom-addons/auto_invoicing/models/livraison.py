@@ -24,3 +24,5 @@ class Livraison(models.Model):
                     return action
 
             record.create_invoice()
+
+            return action
