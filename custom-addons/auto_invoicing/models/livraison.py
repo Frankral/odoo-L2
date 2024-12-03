@@ -8,10 +8,10 @@ class Livraison(models.Model):
     def create_invoice(self):
         for record in self:
             if record.picking_type_id.id == 1:
-                record.purchase_id.invoice_delivery_date = datetime.today()
+                record.purchase_id.auto_invoice_delivery_date = datetime.today()
                 record.purchase_id.creer_facture()
             else:
-                record.sale_id.invoice_delivery_date = datetime.today()
+                record.sale_id.auto_invoice_delivery_date = datetime.today()
                 record.sale_id.creer_facture()
 
 

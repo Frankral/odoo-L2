@@ -11,19 +11,19 @@
                     <group>
                         <group>
                             <field name="automatise_invoice" widget="boolean_toggle" readonly="state != 'draft'"/>
-                            <field name="invoice_date_selection" required="1" readonly="state != 'draft' or not automatise_invoice"/>
-                            <field name="invoice_date" invisible="invoice_date_selection != 'custom'" readonly="state != 'draft' or not automatise_invoice"/>
+                            <field name="auto_invoice_date_selection" required="1" readonly="state != 'draft' or not automatise_invoice"/>
+                            <field name="auto_invoice_date" invisible="auto_invoice_date_selection != 'custom'" readonly="state != 'draft' or not automatise_invoice"/>
                             
                         </group>
                         <group>
-                            <field name="invoice_ref" readonly="state != 'draft' or not automatise_invoice"/>
-                            <field name="invoice_payment_ref" readonly="state != 'draft' or not automatise_invoice"/>
-                            <field name="invoice_payment_term_id" readonly="state != 'draft' or not automatise_invoice"/>
+                            <field name="auto_invoice_ref" readonly="state != 'draft' or not automatise_invoice"/>
+                            <field name="auto_invoice_payment_ref" readonly="state != 'draft' or not automatise_invoice"/>
+                            <field name="auto_invoice_payment_term_id" readonly="state != 'draft' or not automatise_invoice"/>
                         </group>
                         <group>
-                            <field name="invoice_incoterm_id" readonly="state != 'draft' or not automatise_invoice"/>
-                            <field name="invoice_incoterm_location" readonly="state != 'draft' or not automatise_invoice"/>
-                            <field name="invoice_auto_post" required="1" readonly="state != 'draft' or not automatise_invoice"/>                            
+                            <field name="auto_invoice_incoterm_id" readonly="state != 'draft' or not automatise_invoice"/>
+                            <field name="auto_invoice_incoterm_location" readonly="state != 'draft' or not automatise_invoice"/>
+                            <field name="auto_invoice_auto_post" required="1" readonly="state != 'draft' or not automatise_invoice"/>                            
                         </group>
 
                     </group>
